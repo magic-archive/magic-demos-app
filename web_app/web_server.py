@@ -15,12 +15,13 @@ def index():
 
 @app.route('/demo')
 def project():
-    project_url = request.args.get('project_name')
+    project_name = request.args.get('project_name')
     project_type = request.args.get('project_type')
 
     try:
-        logging.info('Starting a {} docker container for : {}'.format(project_type, project_url))
-        cmd = 'docker run --rm -p 7681:7681 ttyd:latest {} {}'.format(project_url, project_type)
+        logging.info('Starting a {} docker container for : {}'.format(project_type, project_name))
+        cmd = 'docker run --rm -p 7681:7681 ttyd:latest {} {}'.format(project_name, project_type)
+        logging.info('Running : {}'.format(cmd))
         subprocess.call(cmd,
                         shell=True)
     except:
