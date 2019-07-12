@@ -1,0 +1,1 @@
+PROJECT_TYPE_METADATA_FILE =  'project_type_metadata.json'

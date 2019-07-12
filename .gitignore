@@ -1,2 +1,4 @@
 ttyd/
 tmp/
+.pyc
+__pycache__/

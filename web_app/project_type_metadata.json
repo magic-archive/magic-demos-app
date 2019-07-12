@@ -1,0 +1,14 @@
+{
+	"python": {
+		"docker_run_cmd" : "docker run --rm -p 7681:7681 magic_python:latest"
+	},
+	"java": {
+		"docker_run_cmd" : "docker run --rm -p 7682:7681 magic_java:latest"
+	},
+	"ipynb": {
+		"docker_run_cmd" : "docker run --rm -p 7683:7681 magic_ipynb:latest"
+	},
+	"html": {
+		"docker_run_cmd" : "docker run --rm -p 7684:80 magic_html:latest"
+	}
+}
