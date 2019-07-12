@@ -1,14 +1,22 @@
 {
 	"python": {
-		"docker_run_cmd" : "docker run --rm -p 7681:7681 magic_python:latest"
+		"docker_image" : "magic_python",
+		"out_port" : 7681,
+		"in_port" : 7681
 	},
 	"java": {
-		"docker_run_cmd" : "docker run --rm -p 7682:7681 magic_java:latest"
+		"docker_image" : "magic_java",
+		"out_port" : 7682,
+		"in_port" : 7681
 	},
 	"ipynb": {
-		"docker_run_cmd" : "docker run --rm -p 7683:7681 magic_ipynb:latest"
+		"docker_image" : "magic_ipynb",
+		"out_port" : 7683,
+		"in_port" : 7681
 	},
 	"html": {
-		"docker_run_cmd" : "docker run --rm -p 7684:80 magic_html:latest"
+		"docker_image" : "magic_html",
+		"out_port" : 7684,
+		"in_port" : 80
 	}
 }

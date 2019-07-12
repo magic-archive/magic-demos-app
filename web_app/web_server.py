@@ -14,7 +14,7 @@ project_type_metadata = None
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template(INDEX_TEMPLATE)
 
 
 @app.route('/demo')
@@ -25,29 +25,27 @@ def project():
     logging.info('Starting a {} docker container for : {}'.format(project_type, project_name))
 
     try:
-        logging.info(project_type_metadata)
         assert project_type in project_type_metadata
 
-        cmd = '{} {} {}'.format(project_type_metadata.get(project_type).get('docker_run_cmd'),
-                                project_name,
-                                project_type)
+        cmd = 'docker run --rm -p {}:{} {}:latest {} {}'.format(
+            project_type_metadata.get(project_type).get('out_port'),
+            project_type_metadata.get(project_type).get('in_port'),
+            project_type_metadata.get(project_type).get('docker_image'),
+            project_name,
+            project_type)
         logging.info('Running : {}'.format(cmd))
         subprocess.call(cmd,
                         shell=True)
     except:
+        # TODO: Better error handling and redirection if project does not exist
         logging.warning('Encountered an error while running docker')
         logging.warning(traceback.print_exc())
 
-    if project_type == 'python':
-        return render_template('docker_bash.html')
-    elif project_type == 'java':
-        return render_template('docker_bash.html')
-    elif project_type == 'ipynb':
-        return render_template('docker_bash.html')
-    elif project_type == 'html':
-        return render_template('docker_bash.html')
+    if project_type in project_type_metadata:
+        return render_template(DOCKER_BASH_HTML,
+                               port=project_type_metadata.get(project_type).get('out_port'))
     else:
-        return render_template("index.html")
+        return render_template(INDEX_TEMPLATE)
 
 
 def main():
@@ -58,6 +56,7 @@ def main():
     logging.info(PROJECT_TYPE_METADATA_FILE)
     global project_type_metadata
     project_type_metadata = json.load(open(PROJECT_TYPE_METADATA_FILE, 'r'))
+    logging.info(project_type_metadata)
 
     # Run the flask server
     app.run()
