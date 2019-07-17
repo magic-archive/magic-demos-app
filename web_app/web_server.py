@@ -27,7 +27,7 @@ def project():
     try:
         assert project_type in project_type_metadata
 
-        cmd = 'docker run --rm -p {}:{} {}:latest {} {}'.format(
+        cmd = 'docker run -d --rm -p {}:{} {}:latest {} {}'.format(
             project_type_metadata.get(project_type).get('out_port'),
             project_type_metadata.get(project_type).get('in_port'),
             project_type_metadata.get(project_type).get('docker_image'),
